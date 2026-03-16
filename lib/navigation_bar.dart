@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 
 void main() => runApp(const NavigationBarApp());
 
-class NavigationBarApp extends StatelessWidget {
+class navigationBarApp extends StatelessWidget {
   const NavigationBarApp({super.key});
 
   @override
@@ -44,3 +44,4 @@ class _NavigationExampleState extends State<NavigationExample> {
     );
   }
 }
+ */

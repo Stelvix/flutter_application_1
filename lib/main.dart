@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'form_page.dart';
-import 'NavigationBar.dart';
-import 'Components/my_drawer.dart';
+import 'package:flutter_application_1/home_page.dart';
 
 void main() => runApp(MaterialApp(home: MonApp()));
 
@@ -18,8 +16,7 @@ class MonApp extends StatelessWidget {
           backgroundColor: Colors.black,
           foregroundColor: Colors.white,
         ),
-        drawer: MyDrawerTile(),
-        body: MonForm(),
+        body: const HomePage(),
 
         //backgroundColor: Colors.black,
       ),
