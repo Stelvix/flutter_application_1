@@ -1,5 +1,9 @@
+import 'dart:io';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Components/my_drawer.dart';
+import 'package:path_provider/path_provider.dart';
 
 class MonForm extends StatefulWidget {
   const MonForm({super.key});
@@ -21,6 +25,37 @@ class _MonFormState extends State<MonForm> {
     "Aucune Priorité",
   ];
   String prioriteSelectionne = "Aucune Priorité";
+
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    return directory.path;
+  }
+
+  Future<File> get _loadFile async {
+    final path = await _localPath;
+    return File('$path/incidents.txt');
+  }
+
+  Future<void> _writeIncident(
+    String titre,
+    String description,
+    bool etatIncident,
+    String prioriteSelectionne,
+  ) async {
+    final file = await _loadFile;
+    // je fait le mapping de mes données en format json
+    Map<String, dynamic> incidents = {
+      "titre": titre,
+      "description": description,
+      "etatIncident": etatIncident,
+      "priorite": prioriteSelectionne,
+    };
+    // j'encode mes données en format json et je les ajoute dans mon fichier
+    String incidentData = jsonEncode(incidents) + "\n";
+
+    await file.writeAsString(incidentData, mode: FileMode.append);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,22 +119,21 @@ class _MonFormState extends State<MonForm> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-
+                    _writeIncident(
+                      titre,
+                      description,
+                      etatIncident,
+                      prioriteSelectionne,
+                    );
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.green,
-                        content: Text(
-                          "Rapport d'incident envoyé avec succès, RECAP : \n"
-                          "Titre: $titre\n"
-                          "Description: $description\n"
-                          "Etat de l'incident: ${etatIncident ? "Etat critique" : "Pas critique"}\n"
-                          "Priorité: $prioriteSelectionne",
-                        ),
+                      const SnackBar(
+                        content: Text("Incident soumis avec succès!"),
                       ),
                     );
                   }
                 },
-                child: const Text("Envoyer"),
+
+                child: const Text("Soumettre"),
               ),
             ],
           ),
