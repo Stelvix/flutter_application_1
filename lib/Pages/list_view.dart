@@ -1,4 +1,4 @@
-import 'dart:io';
+/* import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Components/my_drawer.dart';
 import 'package:flutter_application_1/form_page.dart';
@@ -14,4 +14,4 @@ Future<List<Map<String, dynamic>>> _lireIncidents() async{
     // je parse chaque ligne du fichier en format json et je les ajoute dans une liste
     return lines.map((line) => jsonDecode(line)) as Map<String, dynamic>).toList();
   }
-}
+} */
