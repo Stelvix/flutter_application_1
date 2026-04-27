@@ -25,9 +25,20 @@ class IncidentsServices {
     }
   }
 
-  // on met a jour 
+  // on met a jour
+  Future<void> updateIncidents(Incidents incidents) async {
+    final update = Incidents(
+      id: incidents.id,
+      titre: incidents.titre,
+      description: incidents.description,
+      priorite: incidents.priorite,
+      etatIncident: incidents.etatIncident,
+    );
+    await DbHelper.UpdateIncidents(update);
+  }
 
-
-
-
+  // on supprime
+  Future<void> deleteIncidentsById(int id) async {
+    await DbHelper.deleteIncident(id);
+  }
 }
